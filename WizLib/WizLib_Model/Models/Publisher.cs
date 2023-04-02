@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace WizLib_Model.Models
 {
-    public class Book
+    public class Publisher
     {
         [Key]
-        public int Book_Id { get; set; }
+        public int Publisher_Id { get; set; }
+
         [Required]
-        public string Title { get; set; }
+        public string Name { get; set; }
+
         [Required]
-        [MaxLength(15)]
-        public string ISBN { get; set; }
-        [Required]
-        public double Price { get; set; }
+        public string Location { get; set; }
     }
 }
