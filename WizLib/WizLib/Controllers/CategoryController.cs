@@ -36,5 +36,27 @@ namespace WizLib.Controllers
             }
             return View(obj);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                if (obj.Category_Id == 0)
+                {
+                    //this is create
+                    _db.Categories.Add(obj);
+                }
+                else
+                {
+                    //this is an update
+                    _db.Categories.Update(obj);
+                }
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(obj);
+
+        }
     }
 }
