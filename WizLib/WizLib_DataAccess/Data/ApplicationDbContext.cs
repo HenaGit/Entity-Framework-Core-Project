@@ -43,6 +43,10 @@ namespace WizLib_DataAccess.Data
             modelBuilder.Entity<Fluent_Book>().Property(b => b.ISBN).IsRequired().HasMaxLength(15);
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Title).IsRequired();
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Price).IsRequired();
+            //one to one relation between book and book detail
+            modelBuilder.Entity<Fluent_Book>()
+                .HasOne(b => b.Fluent_BookDetail)
+                .WithOne(b => b.Fluent_Book).HasForeignKey<Fluent_Book>("BookDetail_Id");
             //Author
             modelBuilder.Entity<Fluent_Author>().HasKey(b => b.Author_Id);
             modelBuilder.Entity<Fluent_Author>().Property(b => b.FirstName).IsRequired();
