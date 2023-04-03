@@ -44,5 +44,29 @@ namespace WizLib.Controllers
             }
             return View(obj);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(BookVM obj)
+        {
+            if (obj.Book.Book_Id == 0)
+            {
+                //this is create
+                _db.Books.Add(obj.Book);
+            }
+            else
+            {
+                //this is an update
+                _db.Books.Update(obj.Book);
+            }
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete(int id)
+        {
+            var objFromDb = _db.Books.FirstOrDefault(u => u.Book_Id == id);
+            _db.Books.Remove(objFromDb);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
