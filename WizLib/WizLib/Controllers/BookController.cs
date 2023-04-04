@@ -119,6 +119,19 @@ namespace WizLib.Controllers
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult ManageAuthors(int id)
+        {
+            BookAuthorVM obj = new BookAuthorVM
+            {
+                BookAuthorList = _db.BookAuthors.Include(u => u.Author).Include(u => u.Book)
+                                    .Where(u => u.Book_Id == id).ToList(),
+                BookAuthor = new BookAuthor()
+                {
+                    Book_Id = id
+                },
+                Book = _db.Books.FirstOrDefault(u => u.Book_Id == id)
+            };
+        }
         public IActionResult PlayGround()
         {
             //var bookTemp = _db.Books.FirstOrDefault();
