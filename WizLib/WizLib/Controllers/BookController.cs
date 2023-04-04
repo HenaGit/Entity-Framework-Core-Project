@@ -196,30 +196,38 @@ namespace WizLib.Controllers
             //var bookCount1 = bookCollection2.Count();
 
             //var bookCount2 = _db.Books.Count();
-            IEnumerable<Book> BookList1 = _db.Books;
-            var FilteredBook1 = BookList1.Where(b => b.Price > 500).ToList();
+            //IEnumerable<Book> BookList1 = _db.Books;
+            //var FilteredBook1 = BookList1.Where(b => b.Price > 500).ToList();
 
-            IQueryable<Book> BookList2 = _db.Books;
-            var fileredBook2 = BookList2.Where(b => b.Price > 500).ToList();
+            //IQueryable<Book> BookList2 = _db.Books;
+            //var fileredBook2 = BookList2.Where(b => b.Price > 500).ToList();
 
-            var category = _db.Categories.FirstOrDefault();
-            _db.Entry(category).State = EntityState.Modified;
+            //var category = _db.Categories.FirstOrDefault();
+            //_db.Entry(category).State = EntityState.Modified;
 
-            _db.SaveChanges();
+            //_db.SaveChanges();
 
-            //Updating Related Data
-            var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
-            bookTemp1.BookDetail.NumberOfChapters = 2222;
-            bookTemp1.Price = 12345;
-            _db.Books.Update(bookTemp1);
-            _db.SaveChanges();
+            ////Updating Related Data
+            //var bookTemp1 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
+            //bookTemp1.BookDetail.NumberOfChapters = 2222;
+            //bookTemp1.Price = 12345;
+            //_db.Books.Update(bookTemp1);
+            //_db.SaveChanges();
 
 
-            var bookTemp2 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
-            bookTemp2.BookDetail.Weight = 3333;
-            bookTemp2.Price = 123456;
-            _db.Books.Attach(bookTemp2);
-            _db.SaveChanges();
+            //var bookTemp2 = _db.Books.Include(b => b.BookDetail).FirstOrDefault(b => b.Book_Id == 4);
+            //bookTemp2.BookDetail.Weight = 3333;
+            //bookTemp2.Price = 123456;
+            //_db.Books.Attach(bookTemp2);
+            //_db.SaveChanges();
+
+            //VIEWS
+            var viewList = _db.BookDetailsFromViews.ToList();
+            var viewList1 = _db.BookDetailsFromViews.FirstOrDefault();
+            var viewList2 = _db.BookDetailsFromViews.Where(u => u.Price > 500);
+
+
+            //SPROC
             return RedirectToAction(nameof(Index));
         }
     }
