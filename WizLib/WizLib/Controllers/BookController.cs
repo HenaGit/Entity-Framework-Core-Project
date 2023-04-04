@@ -131,6 +131,18 @@ namespace WizLib.Controllers
                 },
                 Book = _db.Books.FirstOrDefault(u => u.Book_Id == id)
             };
+            List<int> tempListOfAssignedAuthors = obj.BookAuthorList.Select(u => u.Author_Id).ToList();
+            //NOT IN Clause in LINQ
+            //get all the authors whos id is not in tempListOfAssignedAuthors
+            var tempList = _db.Authors.Where(u => !tempListOfAssignedAuthors.Contains(u.Author_Id)).ToList();
+
+            obj.AuthorList = tempList.Select(i => new SelectListItem
+            {
+                Text = i.FullName,
+                Value = i.Author_Id.ToString()
+            });
+
+            return View(obj);
         }
         public IActionResult PlayGround()
         {
